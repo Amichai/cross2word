@@ -1,0 +1,25 @@
+.link-primary {
+  cursor: pointer;
+}
+
+:root {
+  /* --theme-color1:#6EB3CE;
+--theme-color2:#A7C9BF;
+--theme-color3:#D6DEBA;
+--theme-color4:#E2D2B1; */
+
+  /* --theme-color4:#473B43;
+--theme-color3:#6B6562;
+--theme-color2:#A3886E;
+--theme-color1:#DCAE74; */
+
+  --theme-color1: #80d8bc;
+  --theme-color2: #bcbab5;
+  --theme-color3: #b49173;
+  --theme-color4: #c25a56;
+  --theme-color5: #ba4746;
+
+  --tag-color: #5c6bc0;
+
+  --background-color: rgb(246, 248, 252);
+}
