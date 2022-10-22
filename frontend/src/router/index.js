@@ -4,6 +4,7 @@ import { authGuard } from '@auth0/auth0-vue';
 import BoardView from '../components/BoardView.vue';
 import NewBoard from '../components/NewBoard.vue';
 import HomeView from '../components/HomeView.vue';
+import CardDeck from '../components/CardDeck.vue';
 
 const routes = [
   {
@@ -11,21 +12,24 @@ const routes = [
     name: 'Notebook',
     component: BoardView,
     props: true,
-    beforeEnter: authGuard,
   },
   {
     path: '/:notebookId/new',
     name: 'New Notebook',
     component: NewBoard,
     props: true,
-    beforeEnter: authGuard,
   },
   {
     path: '/',
     name: 'Home',
     component: HomeView,
     props: true,
-    beforeEnter: authGuard,
+  },
+  {
+    path: '/deck/:deckId',
+    name: 'Deck',
+    component: CardDeck,
+    props: true,
   },
 ];
 

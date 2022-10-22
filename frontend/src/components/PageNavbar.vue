@@ -1,28 +1,10 @@
 <template>
-  <header class="p-3 mb-3 border-bottom header">
+  <header class="p-3 header page-navbar">
     <div class="container">
       <div
-        class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
+        class="d-flex flex-wrap align-items-center justify-content-center"
       >
-        <a class="navbar-brand" href="/">
-          <img src="../assets/logo.png" width="40" />
-        </a>
-        <a
-          href="/Notebooks"
-          class="d-flex align-items-center mb-2 mb-lg-0 text-dark text-decoration-none"
-        >
-          <svg
-            class="bi me-2"
-            width="40"
-            height="32"
-            role="img"
-            aria-label="Bootstrap"
-          >
-            <use xlink:href="#bootstrap"></use>
-          </svg>
-        </a>
-
-        <a @click="logout" class="link-primary"> Log Out </a>
+        Buzzard Battle
       </div>
     </div>
   </header>
@@ -51,6 +33,17 @@ export default defineComponent({
 
 <style scoped>
 .header {
-  background-color: var(--theme-color2);
+  background-color: black;
+  color: white;
+  display: flex;
+font-weight: 700;
+font-family: 'nyt-karnakcondesed';
+letter-spacing: 0.01em;
+font-size: 32px;
+
+}
+
+.page-navbar {
+  border-bottom: 1px solid white;
 }
 </style>

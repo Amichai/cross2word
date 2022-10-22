@@ -66,7 +66,6 @@ import { removeElement } from '../helpers/helpers';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import utc from 'dayjs/plugin/utc';
-import LongPress from 'vue-directive-long-press'
 
 
 export default defineComponent({

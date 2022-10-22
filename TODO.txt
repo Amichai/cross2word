@@ -1,50 +1,9 @@
 TODO:
 
- 
-- collapsable side bar
-- edit tags on a post
-- tag filtering
-- new snippet
-- search bar
+ Start with a dialog that says "Read? Let's go!"
 
-- sorted tags
-- tags should be all lower case always.
--------
-
-Mobile -> condensed view. Clicking on a header opens up edit mode
-Thin desktop -> two columns. condensed view, and all the edit cards
-Desktop -> three columns condensed, cards, tags
-
----
-I need a way to see the tags on a snippet
-
-
-F0EFB9
-ACCB9D
-389C93
-244673
-172831
-
------
- 
-  - new text editor: https://prosemirror.net/
-
-  - drag and drop to sort/order
-
-  -  search bar
-
-  - notebook titles? 
-
-   - preserve the tag filter when navigating between routes
-
- - I should be able to hit the back button to save my changes!
-
-
-  - handle new users
-  -------
-
-  Create new account workflow
-
-
-  - trash view
-   - archive
+ Timer starts counting up
+ card view with a card number.
+ Able to switch to the next card.
+ When you solve a card it's removed from the deck
+ After two minutes, the card is returned to the deck and a letter is revealed
