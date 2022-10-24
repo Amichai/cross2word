@@ -6,10 +6,10 @@
     <div class="background" />
     <div class="modalBox" v-if="isModalVisible">
       <div>
-        <p>Guess the answers as fast you as you can! </p> 
-        <p>Revealing a letter adds to your total time</p>
+        <p>{{modalLine1}}</p> 
+        <p>{{modalLine2}}</p>
       </div>
-      <button type="button" class="btn btn-primary lets-go-button" @click="hideModal">Ready? LET'S GO!</button>
+      <button type="button" class="btn btn-primary lets-go-button" @click="hideModal">{{modalButton}}</button>
     </div>
 
     
@@ -39,16 +39,37 @@
       :letterCount="currentAnswerLength" 
       :revealedLetters="currentCard.revealedLetters"
       :correctAnswer="currentCard.answer"
+      :isSolved="currentCard.isSolved"
+      :cardId="currentCard.id"
       @solved="currentCardSolved"
     ref="answerFieldRef" />
 
     <div class="action-buttons"
     >
-     <button type="button" class="btn btn-secondary" @click="revealClick">Reveal Letter</button> 
-     <button type="button" class="btn btn-secondary" @click="nextClick">Next Card</button> 
+     <button type="button" class="btn btn-secondary" @click="prevClick" @focus="blur">
+        <i class="bi-arrow-left icon"></i>
+      </button> 
+
+     <button type="button" class="btn btn-secondary" @click="revealClick" @focus="blur">Reveal Letter</button> 
+     <button type="button" class="btn btn-secondary" @click="nextClick" @focus="blur">
+      <i class="bi-arrow-right icon"></i>
+      </button> 
     </div>
 
   </div>
+
+  <Fireworks
+    v-if="fireworksEnabled"
+    class="fireworks"
+    :style="{
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      position: 'fixed',
+      background: 'transparent',
+    }"
+  />
 </div>
 </template>
 
@@ -60,11 +81,15 @@ import QuestionPrompt from './QuestionPrompt.vue';
 import cardData from '../data/cards.json'
 import { useStorage } from '@vueuse/core'
 
+import { Fireworks } from '@fireworks-js/vue'
+import type { FireworksOptions } from '@fireworks-js/vue'
+
 export default defineComponent({
   components: {
     PageNavbar,
     AnswerField,
     QuestionPrompt,
+    Fireworks,
   },
 
   props: {
@@ -73,17 +98,18 @@ export default defineComponent({
   emits: [],
 
   setup(props, { emit }) {
-    const isModalVisible = ref(true)
 
     const totalCardCount = ref(cardData.length)
     const currentCardIndex = ref(0)
+
+    const modalLine1 = ref('Guess the answers as fast you as you can!')
+    const modalLine2 = ref('Revealing a letter adds to your total time')
+    const modalButton = ref("LET'S GO!")
 
     const state = useStorage('session-storage1', {
       count: 0,
       timeElapsed: 0,
       date: '1',
-      solvedCount: 0,
-      unsolvedCount: cardData.length,
       cards: [],
     })
 
@@ -95,21 +121,35 @@ export default defineComponent({
       return currentCard.value.answer.length
     })
 
-    const currentDate = '12'
+    const currentDate = '20' + state.value.cards.length
 
     if (currentDate != state.value.date) {
       state.value.count = 0
       state.value.timeElapsed = 0
       state.value.date = currentDate
-      state.value.solvedCount = 0
       state.value.cards = cardData.map((card) => ({...card, isSolved: false, revealedLetters: []}))
     }
     const timeAtSessionStart = ref(state.value.timeElapsed)
     const totalTimeElapsed = ref(timeAtSessionStart.value)
 
     
-    const solvedCount = state.value.solvedCount
-    const unsolvedCount = state.value.unsolvedCount
+    const solvedCount = computed(() => state.value.cards.filter((card) => card.isSolved).length)
+    const unsolvedCount = computed(() => state.value.cards.filter((card) => !card.isSolved).length)
+
+
+    const fireworksEnabled = ref(false)
+
+    if(unsolvedCount.value === 0) {
+        fireworksEnabled.value = true
+
+        modalLine1.value = `Solved in ${totalTimeElapsed.value} Seconds!`
+        modalLine2.value = ''
+        modalButton.value = "Review My Answers"
+    }
+
+    const isModalVisible = ref(true)
+
+    const revealPenalty = ref(0)
 
     const randomInt = (max) => {
       return Math.floor(Math.random() * max);
@@ -125,7 +165,6 @@ export default defineComponent({
       }
 
       const emptyLetterCount = matchedCard.revealedLetters.filter((i) => i === '').length
-      console.log(emptyLetterCount)
       const letterIndexToFill = randomInt(emptyLetterCount + 1)
       var counterIdx = 0
       for(var i = 0; i < currentCard.value.answer.length; i += 1) {
@@ -136,21 +175,33 @@ export default defineComponent({
         counterIdx += 1
         if (counterIdx === letterIndexToFill){
           currentCard.value.revealedLetters[i] = currentCard.value.answer[i]
+          revealPenalty.value += 300
           break
         }
       }
     }
 
     const nextClick = () => {
-      const availableCards = state.value.cards.filter((card) => !card.isSolved)
-      for(var i = 1; i <= cardData.length; i += 1) {
-        currentCardIndex.value = (currentCardIndex.value + i) % cardData.length
-        const matchedCard = state.value.cards.filter((card) => card.id === currentCard.value.id)[0]
-        if(!matchedCard.isSolved) {
-          break
-        }
+      currentCardIndex.value = (currentCardIndex.value + 1) % cardData.length
+    }
+    
+    const prevClick = () => {
+      currentCardIndex.value = (currentCardIndex.value - 1) % cardData.length
+      while(currentCardIndex.value < 0) {
+        currentCardIndex.value += cardData.length
       }
     }
+
+    window.addEventListener('keydown', (e) => {
+      // console.log(e)
+      if(e.key === "ArrowLeft") {
+        prevClick()
+      }
+      else if(e.key === "ArrowRight") {
+        nextClick()
+      }
+
+    })
 
     const hideModal = () => {
       isModalVisible.value = false
@@ -158,16 +209,36 @@ export default defineComponent({
       var startTime = new Date()
       timeAtSessionStart.value = state.value.timeElapsed
       setInterval(() => {
+        if(unsolvedCount.value === 0) {
+          return
+        }
         const currentTime = new Date()
         const elapsed = (currentTime - startTime) / 1000.0
-        totalTimeElapsed.value = Math.round(elapsed + timeAtSessionStart.value)
+        totalTimeElapsed.value = Math.round(elapsed + timeAtSessionStart.value + revealPenalty.value)
         state.value.timeElapsed = totalTimeElapsed.value
       }, 300)
     }
 
+
     const currentCardSolved = () => {
-      debugger
+      currentCard.value.revealedLetters = currentCard.value.answer.split('')
+      currentCard.value.isSolved = true
+
+      if(unsolvedCount.value === 0) {
+        fireworksEnabled.value = true
+        modalLine1.value = `Solved in ${totalTimeElapsed.value} Seconds!`
+        modalLine2.value = ''
+        modalButton.value = "Review My Answers"
+      }
     }
+
+    const blur = (evt) => {
+      evt.target.blur()
+    }
+
+
+    
+
 
     return {
       isModalVisible,
@@ -176,6 +247,7 @@ export default defineComponent({
       totalTimeElapsed,
       revealClick,
       nextClick,
+      prevClick,
       totalCardCount,
       currentCardIndex,
       solvedCount,
@@ -183,6 +255,13 @@ export default defineComponent({
       currentCard,
       currentAnswerLength,
       currentCardSolved,
+      fireworksEnabled,
+
+      blur,
+
+      modalLine1,
+      modalLine2,
+      modalButton,
     };
   },
 });
@@ -194,9 +273,8 @@ export default defineComponent({
   display: flex;
   flex-direction:column;
   align-items: center;
-  background-color: black;
   color: white;
-  padding: 0 6rem;
+  padding: 0 3rem;
 }
 .overlay {
   background-color: gray;
@@ -264,5 +342,9 @@ export default defineComponent({
   padding: 3rem;
   display: flex;
   gap: 2rem;
+}
+
+.fireworks {
+  z-index: -1;
 }
 </style>

@@ -30,7 +30,15 @@ export default defineComponent({
     correctAnswer: {
       type: String,
       required: true,
-    }
+    },
+    isSolved: {
+      type: Boolean,
+      required: true,
+    },
+    cardId: {
+      type: Number,
+      required: true,
+    },
   },
 
   emits: ['solved'],
@@ -50,19 +58,31 @@ export default defineComponent({
       }
     }
 
-    watch(() => props.letterCount, (newVal) => {
-      console.log(newVal)
+    watch(() => props.cardId, (newVal) => {
+      if(props.isSolved) {
+        return
+      }
       letterArray.value = []
       for(var i =0; i < props.letterCount; i+= 1) {
        letterArray.value.push('')
       }
       letterIndex = 0
+    }, {
+      deep: true,
     })
 
+
     watch(() => props.revealedLetters, (newVal) =>{
+      console.log("NEW REVEALED LETTERS", newVal)
+
       for(var i =0; i < props.revealedLetters.length; i += 1) {
         if(props.revealedLetters[i] !== '') {
           letterArray.value[i] = props.revealedLetters[i]
+        }
+
+        const currentGuess = letterArray.value.join('')
+        if(currentGuess.toLowerCase() === props.correctAnswer.toLowerCase() && !props.isSolved){ 
+          emit('solved')
         }
       }
     }, {
@@ -71,8 +91,7 @@ export default defineComponent({
 
 
     window.addEventListener('keydown', (e) => {
-      console.log(e.key)
-
+      console.log(e)
       if(e.key == "Backspace") {
         if (letterIndex === 0){
           return
@@ -85,8 +104,9 @@ export default defineComponent({
             break
           }
           indexToErase -= 1
-
+          letterIndex -= 1
         }
+
         if(indexToErase !== letterIndex) {
           letterArray.value[indexToErase] = ''
           letterIndex -= 1
@@ -97,6 +117,8 @@ export default defineComponent({
       if(e.key.length > 1) {
         return
       }
+
+      console.log(`letter index: ${letterIndex} - array len: ${letterArray.value.length}`)
 
       if (letterIndex >= letterArray.value.length) {
         return
@@ -114,9 +136,10 @@ export default defineComponent({
       if(canWrite) {
         letterArray.value[letterIndex] = e.key
         letterIndex += 1
+
+        e.stopPropagation()
       }
 
-      console.log(letterArray.value)
       const currentGuess = letterArray.value.join('')
       if(currentGuess.toLowerCase() === props.correctAnswer.toLowerCase()){ 
         emit('solved')

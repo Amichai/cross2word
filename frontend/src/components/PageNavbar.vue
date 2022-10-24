@@ -4,7 +4,7 @@
       <div
         class="d-flex flex-wrap align-items-center justify-content-center"
       >
-        Buzzard Battle
+        🪶Buzzard Battle🪶
       </div>
     </div>
   </header>
@@ -12,20 +12,11 @@
 
 <script>
 import { defineComponent } from 'vue';
-import { useAuth0 } from '@auth0/auth0-vue';
 
 export default defineComponent({
   setup() {
-    console.log("A>AABBcc")
-    const { loginWithRedirect, logout, user } = useAuth0();
-
-    console.log(user.value.sub);
 
     return {
-      login: () => {
-        loginWithRedirect();
-      },
-      logout,
     };
   },
 });
@@ -36,11 +27,10 @@ export default defineComponent({
   background-color: black;
   color: white;
   display: flex;
-font-weight: 700;
-font-family: 'nyt-karnakcondesed';
-letter-spacing: 0.01em;
-font-size: 32px;
-
+  font-weight: 700;
+  font-family: 'nyt-karnakcondesed';
+  letter-spacing: 0.01em;
+  font-size: 32px;
 }
 
 .page-navbar {

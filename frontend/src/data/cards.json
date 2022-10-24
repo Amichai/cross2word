@@ -1,17 +1,42 @@
 [
   {
     "id": 1,
-    "clue": "The world's first pure food & beverage law, one pertaining to beer, was proclaimed by the Duke of this region in 1516",
-    "answer": "Bavaria"
+    "clue": "A member of the Grand Old Party",
+    "answer": "Republican"
   },
   {
     "id": 2,
-    "clue": "In \"Shakespeare in Love\", she was a writer's love interest; in \"Sylvia\" she was the poet",
-    "answer": "gwyneth paltrow"
+    "clue": "This type of \"theory\" explains how an event results from a plot by a covert group",
+    "answer": "conspiracy"
   },
   {
     "id": 3,
-    "clue": "It's the first ingredient on a bag of original Fritos",
-    "answer": "corn"
+    "clue": "When speaking about matters of faith, \"ex cathedra\", the Pope is said to be this, meaning he can't be wrong",
+    "answer": "infallible"
+  },
+  {
+    "id": 4,
+    "clue": "\"Wise fool\" is an example of this 8-letter figure of speech",
+    "answer": "oxymoron"
+  },
+  {
+    "id": 5,
+    "clue": "Essential or basic; a literacy organization says \"Reading Is\" it",
+    "answer": "fundamental"
+  },
+  {
+    "id": 6,
+    "clue": "When the Bastille fell, Louis XVI asked, \"Is it a revolt?\" & was told it was one of these",
+    "answer": "revolution"
+  },
+  {
+    "id": 7,
+    "clue": "It means immature, or otherwise characteristic of a second-year student",
+    "answer": "sophomoric"
+  },
+  {
+    "id": 8,
+    "clue": "This word means \"arrogant\", though it could mean \"catching too many grizzlies\"",
+    "answer": "overbearing"
   }
 ]

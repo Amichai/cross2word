@@ -7,3 +7,5 @@ TODO:
  Able to switch to the next card.
  When you solve a card it's removed from the deck
  After two minutes, the card is returned to the deck and a letter is revealed
+show correct answers at the bottom of the page with letter highlights...
+total time taken etc.

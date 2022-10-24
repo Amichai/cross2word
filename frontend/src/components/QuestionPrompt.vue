@@ -37,7 +37,8 @@ export default defineComponent({
 }
 
 .question {
-  width: 50%;
+  width: 100%;
+  max-width: 50rem;
   font-size: 1.2rem;
   text-align: center;
   /* font-style: italic; */
