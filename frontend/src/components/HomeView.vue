@@ -7,7 +7,7 @@
     <div class="modalBox" v-if="isModalVisible">
       <div>
         <p>{{modalLine1}}</p> 
-        <p>{{modalLine2}}</p>
+        <div>{{modalLine2}}</div>
       </div>
       <button type="button" class="btn btn-primary lets-go-button" @click="hideModal">{{modalButton}}</button>
     </div>
@@ -22,6 +22,8 @@
       </span>
 
     </div>
+      <span style="color: white; font-size: 20px">{{TODAYS_CATEGORY}}</span>
+      <br />
       <span style="color: gray">Card {{currentCardIndex + 1}} of {{totalCardCount}}</span>
       <span style="color: gray">Solved: {{solvedCount}}</span>
       <span style="color: gray">Unsolved: {{unsolvedCount}}</span>
@@ -34,7 +36,7 @@
       :answer="currentCard.answer"
      />
      <br />
-     <span class="prompt">what is ...</span>
+     <span class="prompt">what is (a)...</span>
     <AnswerField 
       :letterCount="currentAnswerLength" 
       :revealedLetters="currentCard.revealedLetters"
@@ -42,7 +44,7 @@
       :isSolved="currentCard.isSolved"
       :cardId="currentCard.id"
       @solved="currentCardSolved"
-    ref="answerFieldRef" />
+      ref="answerFieldRef" />
 
     <div class="action-buttons"
     >
@@ -98,12 +100,15 @@ export default defineComponent({
   emits: [],
 
   setup(props, { emit }) {
+    const TODAYS_CATEGORY = "THE SOLAR SYSTEM"
+
+    const answerFieldRef = ref(null as any)
 
     const totalCardCount = ref(cardData.length)
     const currentCardIndex = ref(0)
 
     const modalLine1 = ref('Guess the answers as fast you as you can!')
-    const modalLine2 = ref('Revealing a letter adds to your total time')
+    const modalLine2 = ref(`Revealing a letter adds 30 seconds to your total time\n\nToday\'s category is ${TODAYS_CATEGORY}!`)
     const modalButton = ref("LET'S GO!")
 
     const state = useStorage('session-storage1', {
@@ -121,13 +126,14 @@ export default defineComponent({
       return currentCard.value.answer.length
     })
 
-    const currentDate = '20' + state.value.cards.length
+    /// TODO:
+    const currentDate = '59' + state.value.cards.length + TODAYS_CATEGORY
 
     if (currentDate != state.value.date) {
       state.value.count = 0
       state.value.timeElapsed = 0
       state.value.date = currentDate
-      state.value.cards = cardData.map((card) => ({...card, isSolved: false, revealedLetters: []}))
+      state.value.cards = cardData.map((card) => ({...card, isSolved: false, revealedLetters: Array.from({length: card.answer.length}, (_) => '')}))
     }
     const timeAtSessionStart = ref(state.value.timeElapsed)
     const totalTimeElapsed = ref(timeAtSessionStart.value)
@@ -157,28 +163,30 @@ export default defineComponent({
 
 
     const revealClick = () => {
+      
       const matchedCard = state.value.cards.filter((card) => card.id === currentCard.value.id)[0]
-      if(matchedCard.revealedLetters.length === 0) {
-        for(var i = 0; i < matchedCard.answer.length; i+= 1) {
-          matchedCard.revealedLetters.push('')
-        }
-      }
+      // if(matchedCard.revealedLetters.length === 0) {
+      //   for(var i = 0; i < matchedCard.answer.length; i+= 1) {
+      //     matchedCard.revealedLetters.push('')
+      //   }
+      // }
 
       const emptyLetterCount = matchedCard.revealedLetters.filter((i) => i === '').length
-      const letterIndexToFill = randomInt(emptyLetterCount + 1)
-      var counterIdx = 0
-      for(var i = 0; i < currentCard.value.answer.length; i += 1) {
-        if(currentCard.value.revealedLetters[i] !== '') {
-          continue
-        }
 
-        counterIdx += 1
-        if (counterIdx === letterIndexToFill){
-          currentCard.value.revealedLetters[i] = currentCard.value.answer[i]
-          revealPenalty.value += 300
-          break
+      console.log("EMPTY LETTER COUNT", emptyLetterCount)
+
+      const randomStartIdx = randomInt(matchedCard.answer.length)
+
+      for(var i = 0; i < currentCard.value.answer.length; i+= 1) {
+        const idx = (i + randomStartIdx) % currentCard.value.answer.length
+        if(currentCard.value.revealedLetters[idx] === '') {
+            currentCard.value.revealedLetters[idx] = currentCard.value.answer[idx]
+            revealPenalty.value += 30
+            break
         }
       }
+
+      answerFieldRef.value.newLetterRevealed()
     }
 
     const nextClick = () => {
@@ -220,24 +228,33 @@ export default defineComponent({
     }
 
 
-    const currentCardSolved = () => {
+    const currentCardSolved = (cardId) => {
+      console.log("CURRENT CARD SOLVED", cardId)
+      if(currentCard.value.id !== cardId) {
+        return
+      }
       currentCard.value.revealedLetters = currentCard.value.answer.split('')
       currentCard.value.isSolved = true
-
+      console.log("IS SOLVED: ", cardId)
       if(unsolvedCount.value === 0) {
         fireworksEnabled.value = true
+        isModalVisible.value = true
         modalLine1.value = `Solved in ${totalTimeElapsed.value} Seconds!`
         modalLine2.value = ''
         modalButton.value = "Review My Answers"
+      } else {
+        nextClick()
+        for(var i = 0; i < state.value.cards.length; i+= 1) {
+          if(!currentCard.value.isSolved) {
+            break
+          }
+        }
       }
     }
 
     const blur = (evt) => {
       evt.target.blur()
     }
-
-
-    
 
 
     return {
@@ -262,6 +279,10 @@ export default defineComponent({
       modalLine1,
       modalLine2,
       modalButton,
+
+      TODAYS_CATEGORY,
+
+      answerFieldRef,
     };
   },
 });
@@ -303,6 +324,7 @@ export default defineComponent({
   font-family: "nyt-karnakcondensed";
   font-weight: 700;
   font-size: 18px;
+  white-space: pre;
 }
 
 .lets-go-button {

@@ -2,8 +2,8 @@
 <div class="answer-field">
   <div v-for="(letter, index) in letterArray" :key="`${index}-${letter}`">
     <LetterBox 
-    :value="letter" 
-    :isRevealed="isRevealedAtIndex(index)"
+    :value="letter.val" 
+    :isRevealed="letter.isRevealed"
      />
   </div>
 </div>
@@ -44,27 +44,40 @@ export default defineComponent({
   emits: ['solved'],
 
   setup(props, { emit }) {
-
+    console.log("NEW ANSWER FIELD")
     const letterArray = ref([])
     var letterIndex = 0
     letterArray.value = []
+
+    const solvedCardIds = []
     for(var i =0; i < props.letterCount; i+= 1) {
-      letterArray.value.push('')
+      letterArray.value.push({val: '', isRevealed: false})
     }
 
     for(var i =0; i < props.revealedLetters.length; i += 1) {
       if(props.revealedLetters[i] !== '') {
-        letterArray.value[i] = props.revealedLetters[i]
+        letterArray.value[i].val = props.revealedLetters[i]
+        letterArray.value[i].isRevealed = true
       }
     }
 
     watch(() => props.cardId, (newVal) => {
+      console.log(`card id changed ${props.cardId} - ${props.isSolved}`)
       if(props.isSolved) {
+        letterArray.value = []
+        for(var i =0; i < props.letterCount; i+= 1) {
+          letterArray.value.push({val: props.correctAnswer[i], isRevealed: true})
+        }
         return
       }
+
+      if(solvedCardIds.includes(props.cardId)) {
+        return
+      }
+
       letterArray.value = []
       for(var i =0; i < props.letterCount; i+= 1) {
-       letterArray.value.push('')
+       letterArray.value.push({val: '', isRevealed: false})
       }
       letterIndex = 0
     }, {
@@ -72,22 +85,24 @@ export default defineComponent({
     })
 
 
-    watch(() => props.revealedLetters, (newVal) =>{
-      console.log("NEW REVEALED LETTERS", newVal)
-
+    const newLetterRevealed = () => {
+      console.log(`revealed letters changed ${props.cardId} - ${props.isSolved}`)
       for(var i =0; i < props.revealedLetters.length; i += 1) {
         if(props.revealedLetters[i] !== '') {
-          letterArray.value[i] = props.revealedLetters[i]
+          letterArray.value[i].val = props.revealedLetters[i]
+        letterArray.value[i].isRevealed = true
         }
 
-        const currentGuess = letterArray.value.join('')
-        if(currentGuess.toLowerCase() === props.correctAnswer.toLowerCase() && !props.isSolved){ 
-          emit('solved')
+        const currentGuess = letterArray.value.map(i => i.val).join('')
+        console.log("CURRENT GUESS", currentGuess)
+        if(currentGuess.toLowerCase() === props.correctAnswer.toLowerCase() && !props.isSolved){
+          console.log("EMITING SOLVED!")
+          !props.isSolved && emit('solved', props.cardId)
+
+          solvedCardIds.push(props.cardId)
         }
       }
-    }, {
-      deep: true,
-    })
+    }
 
 
     window.addEventListener('keydown', (e) => {
@@ -99,6 +114,7 @@ export default defineComponent({
         var indexToErase = letterIndex - 1
         
         while (isRevealedAtIndex(indexToErase)) {
+          console.log("bb")
           if (indexToErase === 0) {
             indexToErase = letterIndex
             break
@@ -108,7 +124,7 @@ export default defineComponent({
         }
 
         if(indexToErase !== letterIndex) {
-          letterArray.value[indexToErase] = ''
+          letterArray.value[indexToErase].val = ''
           letterIndex -= 1
         }
         return
@@ -126,6 +142,7 @@ export default defineComponent({
 
       var canWrite = true
       while(isRevealedAtIndex(letterIndex)) {
+        console.log("cc")
         letterIndex += 1
         if(letterIndex === letterArray.value.length) {
           canWrite = false
@@ -134,25 +151,29 @@ export default defineComponent({
       }
 
       if(canWrite) {
-        letterArray.value[letterIndex] = e.key
+        letterArray.value[letterIndex].val = e.key
         letterIndex += 1
 
         e.stopPropagation()
       }
 
-      const currentGuess = letterArray.value.join('')
-      if(currentGuess.toLowerCase() === props.correctAnswer.toLowerCase()){ 
-        emit('solved')
+      const currentGuess = letterArray.value.map(i => i.val).join('')
+      console.log("CURRENT GUESS2", currentGuess)
+      if(currentGuess.toLowerCase() === props.correctAnswer.toLowerCase() && !props.isSolved){
+        !props.isSolved && emit('solved', props.cardId)
+        solvedCardIds.push(props.cardId)
       }
     });
 
     const isRevealedAtIndex = (index) => {
+      console.log(`${props.revealedLetters}`)
       return props.revealedLetters.length !== 0 && props.revealedLetters[index] !== ''
     }
 
     return {
       letterArray,
       isRevealedAtIndex,
+      newLetterRevealed,
     };
   },
 });

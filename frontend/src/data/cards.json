@@ -1,42 +1,42 @@
 [
   {
     "id": 1,
-    "clue": "A member of the Grand Old Party",
-    "answer": "Republican"
+    "clue": "Objects that pass closer to the sun than Mercury have been named for this mythological figure",
+    "answer": "Icarus"
   },
   {
     "id": 2,
-    "clue": "This type of \"theory\" explains how an event results from a plot by a covert group",
-    "answer": "conspiracy"
+    "clue": "Neptune also has these features, including LeVerrier & Adams; only Saturn's can be seen through a small telescope",
+    "answer": "rings"
   },
   {
     "id": 3,
-    "clue": "When speaking about matters of faith, \"ex cathedra\", the Pope is said to be this, meaning he can't be wrong",
-    "answer": "infallible"
+    "clue": "It's been estimated that this planet contains about 70% of all the material in the solar system, excluding the sun",
+    "answer": "jupiter"
   },
   {
     "id": 4,
-    "clue": "\"Wise fool\" is an example of this 8-letter figure of speech",
-    "answer": "oxymoron"
+    "clue": "Because of its similar size, this planet is known as Earth's \"twin\"",
+    "answer": "venus"
   },
   {
     "id": 5,
-    "clue": "Essential or basic; a literacy organization says \"Reading Is\" it",
-    "answer": "fundamental"
+    "clue": "Only 1 of 8 planets not named for a Greek or Roman mythological figure",
+    "answer": "earth"
   },
   {
     "id": 6,
-    "clue": "When the Bastille fell, Louis XVI asked, \"Is it a revolt?\" & was told it was one of these",
-    "answer": "revolution"
+    "clue": "On Jan. 2, 2004 the Stardust probe collected dust samples from Wild 2, one of these, & is returning them to Earth",
+    "answer": "comet"
   },
   {
     "id": 7,
-    "clue": "It means immature, or otherwise characteristic of a second-year student",
-    "answer": "sophomoric"
+    "clue": "Mercury is believed to have one of the densest in the solar system, made of iron & nickel",
+    "answer": "core"
   },
   {
     "id": 8,
-    "clue": "This word means \"arrogant\", though it could mean \"catching too many grizzlies\"",
-    "answer": "overbearing"
+    "clue": "This 17th century German astronomer's ist law states that the planets move in elliptical orbits around the sun",
+    "answer": "kepler"
   }
 ]
