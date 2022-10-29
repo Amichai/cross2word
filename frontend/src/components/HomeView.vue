@@ -100,7 +100,7 @@ export default defineComponent({
   emits: [],
 
   setup(props, { emit }) {
-    const TODAYS_CATEGORY = "THE SOLAR SYSTEM"
+    const TODAYS_CATEGORY = "FOOD"
 
     const answerFieldRef = ref(null as any)
 
