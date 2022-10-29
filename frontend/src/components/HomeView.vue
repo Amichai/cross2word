@@ -23,11 +23,7 @@
 
     </div>
       <span style="color: white; font-size: 20px">{{TODAYS_CATEGORY}}</span>
-      <br />
-      <span style="color: gray">Card {{currentCardIndex + 1}} of {{totalCardCount}}</span>
-      <span style="color: gray">Solved: {{solvedCount}}</span>
-      <span style="color: gray">Unsolved: {{unsolvedCount}}</span>
-
+      <span style="color: gray">Card {{currentCardIndex + 1}} of {{totalCardCount}} – Unsolved: {{unsolvedCount}}</span>
       <br />
       
     
@@ -59,6 +55,9 @@
     </div>
 
   </div>
+  <SimpleKeyboard @onKeyPress="onKeyPress"
+    v-if="!isModalVisible && isMobile && !fireworksEnabled"
+  />
 
   <Fireworks
     v-if="fireworksEnabled"
@@ -76,7 +75,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue';
+import { 
+  defineComponent,
+  ref,
+  computed,
+  onMounted,
+  onUnmounted
+} from 'vue';
 import PageNavbar from './PageNavbar.vue';
 import AnswerField from './AnswerField.vue';
 import QuestionPrompt from './QuestionPrompt.vue';
@@ -84,7 +89,8 @@ import cardData from '../data/cards.json'
 import { useStorage } from '@vueuse/core'
 
 import { Fireworks } from '@fireworks-js/vue'
-import type { FireworksOptions } from '@fireworks-js/vue'
+import SimpleKeyboard from './SimpleKeyboard.vue'
+
 
 export default defineComponent({
   components: {
@@ -92,6 +98,7 @@ export default defineComponent({
     AnswerField,
     QuestionPrompt,
     Fireworks,
+    SimpleKeyboard,
   },
 
   props: {
@@ -111,6 +118,15 @@ export default defineComponent({
     const modalLine2 = ref(`Revealing a letter adds 30 seconds to your total time\n\nToday\'s category is ${TODAYS_CATEGORY}!`)
     const modalButton = ref("LET'S GO!")
 
+
+    onMounted(() => {
+      window.addEventListener('resize', onResize);
+    });
+
+    onUnmounted(() => {
+      window.removeEventListener('resize', onResize);
+    });
+
     const state = useStorage('session-storage1', {
       count: 0,
       timeElapsed: 0,
@@ -127,7 +143,7 @@ export default defineComponent({
     })
 
     /// TODO:
-    const currentDate = '59' + state.value.cards.length + TODAYS_CATEGORY
+    const currentDate = '60' + state.value.cards.length + TODAYS_CATEGORY
 
     if (currentDate != state.value.date) {
       state.value.count = 0
@@ -256,6 +272,20 @@ export default defineComponent({
       evt.target.blur()
     }
 
+    const onKeyPress = (button) => {
+      answerFieldRef.value.keyPressed(button, undefined)
+      console.log("button", button);
+    }
+
+
+    const MOBILE_WIDTH = 760;
+
+    const isMobile = ref(visualViewport.width <= MOBILE_WIDTH);
+    const onResize = () => {
+      isMobile.value = visualViewport.width <= MOBILE_WIDTH;
+    };
+
+
 
     return {
       isModalVisible,
@@ -283,6 +313,10 @@ export default defineComponent({
       TODAYS_CATEGORY,
 
       answerFieldRef,
+
+      onKeyPress,
+
+      isMobile,
     };
   },
 });
@@ -324,7 +358,6 @@ export default defineComponent({
   font-family: "nyt-karnakcondensed";
   font-weight: 700;
   font-size: 18px;
-  white-space: pre;
 }
 
 .lets-go-button {

@@ -104,17 +104,14 @@ export default defineComponent({
       }
     }
 
-
-    window.addEventListener('keydown', (e) => {
-      console.log(e)
-      if(e.key == "Backspace") {
+    const keyPressed = (key, evt) => {
+      if(key === "Backspace" || key === "{backspace}") {
         if (letterIndex === 0){
           return
         }
         var indexToErase = letterIndex - 1
         
         while (isRevealedAtIndex(indexToErase)) {
-          console.log("bb")
           if (indexToErase === 0) {
             indexToErase = letterIndex
             break
@@ -130,7 +127,7 @@ export default defineComponent({
         return
       }
 
-      if(e.key.length > 1) {
+      if(key.length > 1) {
         return
       }
 
@@ -142,7 +139,6 @@ export default defineComponent({
 
       var canWrite = true
       while(isRevealedAtIndex(letterIndex)) {
-        console.log("cc")
         letterIndex += 1
         if(letterIndex === letterArray.value.length) {
           canWrite = false
@@ -151,10 +147,10 @@ export default defineComponent({
       }
 
       if(canWrite) {
-        letterArray.value[letterIndex].val = e.key
+        letterArray.value[letterIndex].val = key
         letterIndex += 1
 
-        e.stopPropagation()
+        evt?.stopPropagation()
       }
 
       const currentGuess = letterArray.value.map(i => i.val).join('')
@@ -163,6 +159,10 @@ export default defineComponent({
         !props.isSolved && emit('solved', props.cardId)
         solvedCardIds.push(props.cardId)
       }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      keyPressed(e.key, e)
     });
 
     const isRevealedAtIndex = (index) => {
@@ -174,6 +174,7 @@ export default defineComponent({
       letterArray,
       isRevealedAtIndex,
       newLetterRevealed,
+      keyPressed,
     };
   },
 });
