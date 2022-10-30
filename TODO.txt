@@ -9,3 +9,7 @@ TODO:
  After two minutes, the card is returned to the deck and a letter is revealed
 show correct answers at the bottom of the page with letter highlights...
 total time taken etc.
+
+-----
+Revealing letters and then switching cards is broken
+leaderboard

@@ -394,12 +394,17 @@ export default defineComponent({
 }
 
 .action-buttons {
-  padding: 3rem;
+  padding: 2rem;
   display: flex;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
 .fireworks {
   z-index: -1;
+}
+
+.simple-keyboard {
+  position: fixed;
+  bottom: 0;
 }
 </style>
