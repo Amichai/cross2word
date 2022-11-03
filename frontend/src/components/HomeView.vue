@@ -9,7 +9,11 @@
         <p>{{modalLine1}}</p> 
         <div>{{modalLine2}}</div>
       </div>
-      <button type="button" class="btn btn-primary lets-go-button" @click="hideModal">{{modalButton}}</button>
+      <div class="share-rewiew-buttons">
+        <button type="button" class="btn btn-primary lets-go-button" @click="hideModal">{{modalButton}}</button>
+        <button type="button" v-if="isModalVisible && fireworksEnabled" class="btn btn-primary lets-go-button" @click="share">Copy My Result!</button>
+      </div>
+
     </div>
 
     
@@ -107,7 +111,7 @@ export default defineComponent({
   emits: [],
 
   setup(props, { emit }) {
-    const TODAYS_CATEGORY = "FOOD"
+    const TODAYS_CATEGORY = "HISTORY"
 
     const answerFieldRef = ref(null as any)
 
@@ -143,7 +147,7 @@ export default defineComponent({
     })
 
     /// TODO:
-    const currentDate = '60' + state.value.cards.length + TODAYS_CATEGORY
+    const currentDate = '62' + state.value.cards.length + TODAYS_CATEGORY
 
     if (currentDate != state.value.date) {
       state.value.count = 0
@@ -285,6 +289,13 @@ export default defineComponent({
       isMobile.value = visualViewport.width <= MOBILE_WIDTH;
     };
 
+    const share = () => {
+      const text = `🪶Buzzard Battle🪶 - ${TODAYS_CATEGORY}\n${totalTimeElapsed.value} seconds\nhttps://chanagila.buzzardbattle.com`
+      const type = "text/plain";
+      const blob = new Blob([text], { type });
+      const data = [new ClipboardItem({ [type]: blob })];
+      navigator.clipboard.write(data)
+    }
 
 
     return {
@@ -317,6 +328,7 @@ export default defineComponent({
       onKeyPress,
 
       isMobile,
+      share,
     };
   },
 });
@@ -406,5 +418,10 @@ export default defineComponent({
 .simple-keyboard {
   position: fixed;
   bottom: 0;
+}
+
+.share-rewiew-buttons {
+  display: flex;
+  gap: 1.5rem;
 }
 </style>

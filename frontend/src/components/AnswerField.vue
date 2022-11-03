@@ -79,6 +79,12 @@ export default defineComponent({
       for(var i =0; i < props.letterCount; i+= 1) {
        letterArray.value.push({val: '', isRevealed: false})
       }
+      for(var i =0; i < props.revealedLetters.length; i += 1) {
+        if(props.revealedLetters[i] !== '') {
+          letterArray.value[i].val = props.revealedLetters[i]
+          letterArray.value[i].isRevealed = true
+        }
+      }
       letterIndex = 0
     }, {
       deep: true,
