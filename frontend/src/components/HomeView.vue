@@ -111,7 +111,7 @@ export default defineComponent({
   emits: [],
 
   setup(props, { emit }) {
-    const TODAYS_CATEGORY = "HISTORY"
+    const TODAYS_CATEGORY = "CROSSWORD CLUES \"H\""
 
     const answerFieldRef = ref(null as any)
 
@@ -119,7 +119,8 @@ export default defineComponent({
     const currentCardIndex = ref(0)
 
     const modalLine1 = ref('Guess the answers as fast you as you can!')
-    const modalLine2 = ref(`Revealing a letter adds 30 seconds to your total time\n\nToday\'s category is ${TODAYS_CATEGORY}!`)
+    // const modalLine2 = ref(`Revealing a letter adds 30 seconds to your total time\n\nToday\'s category is ${TODAYS_CATEGORY}!`)
+    const modalLine2 = ref(`Today\'s category is ${TODAYS_CATEGORY}!`)
     const modalButton = ref("LET'S GO!")
 
 
@@ -147,7 +148,7 @@ export default defineComponent({
     })
 
     /// TODO:
-    const currentDate = '62' + state.value.cards.length + TODAYS_CATEGORY
+    const currentDate = '63' + state.value.cards.length + TODAYS_CATEGORY
 
     if (currentDate != state.value.date) {
       state.value.count = 0
