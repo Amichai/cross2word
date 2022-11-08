@@ -8,6 +8,8 @@
       <div>
         <p>{{modalLine1}}</p> 
         <div>{{modalLine2}}</div>
+
+        <ResultComponent :resultArray="revealedLettersArray" />
       </div>
       <div class="share-rewiew-buttons">
         <button type="button" class="btn btn-primary lets-go-button" @click="hideModal">{{modalButton}}</button>
@@ -95,7 +97,7 @@ import { useStorage } from '@vueuse/core'
 import { Fireworks } from '@fireworks-js/vue'
 import SimpleKeyboard from './SimpleKeyboard.vue'
 import { useRouter, useRoute } from 'vue-router';
-
+import ResultComponent from './ResultComponent.vue'
 
 
 export default defineComponent({
@@ -105,6 +107,7 @@ export default defineComponent({
     QuestionPrompt,
     Fireworks,
     SimpleKeyboard,
+    ResultComponent,
   },
 
   props: {
@@ -128,9 +131,12 @@ export default defineComponent({
     const totalCardCount = ref(todaysCards.length)
     const currentCardIndex = ref(0)
 
-    const modalLine1 = ref('Guess the answers as fast you as you can!')
+    const modalLine1 = ref('Guess the answers as fast you as you can!\n\nRevealing a letter adds 30 seconds to your time.')
     // const modalLine2 = ref(`Revealing a letter adds 30 seconds to your total time\n\nToday\'s category is ${TODAYS_CATEGORY}!`)
     const modalLine2 = ref(`Today\'s category is ${TODAYS_CATEGORY}!`)
+
+    const resultChart = ref('RESULT AREA\n 🟩🟩🟩🟩🟩\n 🟩🟩🟩🟩🟩')
+
     const modalButton = ref("LET'S GO!")
 
 
@@ -158,7 +164,7 @@ export default defineComponent({
     })
 
     /// TODO:
-    const currentDate = '65' + state.value.cards.length + TODAYS_CATEGORY
+    const currentDate = '66' + state.value.cards.length + TODAYS_CATEGORY
 
     if (currentDate != state.value.date) {
       state.value.count = 0
@@ -175,16 +181,25 @@ export default defineComponent({
 
 
     const fireworksEnabled = ref(false)
-
-    if(unsolvedCount.value === 0) {
-        fireworksEnabled.value = true
-
-        modalLine1.value = `Solved in ${totalTimeElapsed.value} Seconds!`
-        modalLine2.value = ''
-        modalButton.value = "Review My Answers"
-    }
+    const revealedLettersArray = ref([])
 
     const isModalVisible = ref(true)
+
+
+    const setBoardAsSolved = () => {
+      fireworksEnabled.value = true
+
+      modalLine1.value = `Solved in ${totalTimeElapsed.value} Seconds!`
+      modalLine2.value = ''
+      modalButton.value = "Review My Answers"
+      isModalVisible.value = true
+
+      revealedLettersArray.value = state.value.cards.map((card) => card.hintsRequired ?? 0)
+    }
+
+    if(unsolvedCount.value === 0) {
+        setBoardAsSolved()
+    }
 
     const revealPenalty = ref(0)
 
@@ -192,9 +207,7 @@ export default defineComponent({
       return Math.floor(Math.random() * max);
     }
 
-
     const revealClick = () => {
-      
       const matchedCard = state.value.cards.filter((card) => card.id === currentCard.value.id)[0]
       // if(matchedCard.revealedLetters.length === 0) {
       //   for(var i = 0; i < matchedCard.answer.length; i+= 1) {
@@ -264,15 +277,12 @@ export default defineComponent({
       if(currentCard.value.id !== cardId) {
         return
       }
+      currentCard.value.hintsRequired = currentCard.value.revealedLetters.length
       currentCard.value.revealedLetters = currentCard.value.answer.split('')
       currentCard.value.isSolved = true
       console.log("IS SOLVED: ", cardId)
       if(unsolvedCount.value === 0) {
-        fireworksEnabled.value = true
-        isModalVisible.value = true
-        modalLine1.value = `Solved in ${totalTimeElapsed.value} Seconds!`
-        modalLine2.value = ''
-        modalButton.value = "Review My Answers"
+        setBoardAsSolved()
       } else {
         nextClick()
         for(var i = 0; i < state.value.cards.length; i+= 1) {
@@ -340,6 +350,9 @@ export default defineComponent({
 
       isMobile,
       share,
+
+      resultChart,
+      revealedLettersArray,
     };
   },
 });
