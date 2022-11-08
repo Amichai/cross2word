@@ -1,42 +1,329 @@
-[
-  {
-    "id": 1,
-    "clue": "Sleep like a bear",
-    "answer": "Hibernate"
+{ 
+  "today": {
+    "category": "DOUBLE \"L\" WORDS",
+    "cards":
+    [
+      {
+        "id": 1,
+        "clue": "At the gym, this machine lets you walk or run in place by means of a moving belt",
+        "answer": "treadmill"
+      },
+      {
+        "id": 2,
+        "clue": "In Greek myth, Paris killed this hero by shooting him with an arrow; what a heel!",
+        "answer": "achilles"
+      },
+      {
+        "id": 3,
+        "clue": "John Brown died on one in 1859",
+        "answer": "gallows"
+      },
+      {
+        "id": 4,
+        "clue": "From the Latin for \"bind to\", this word's synonyms are accomplice & friend",
+        "answer": "ally"
+      },
+      {
+        "id": 5,
+        "clue": "It can refer to an onion before the development of the bulb, or an onionlike plant such as the leek or shallot",
+        "answer": "scallion"
+      },
+      {
+        "id": 6,
+        "clue": "A streetcar",
+        "answer": "trolley"
+      },
+      {
+        "id": 7,
+        "clue": "It can refer to the oars used to propel a boat, or a racing boat propelled by those oars",
+        "answer": "scull"
+      },
+      {
+        "id": 8,
+        "clue": "he Bulgarian language is written in this alphabet",
+        "answer": "Cyrillic"
+      }
+    ]
   },
+  "1":
   {
-    "id": 2,
-    "clue": "A Japanese-style grill",
-    "answer": "hibachi"
+    "category": "4-SYLLABLE WORDS",
+    "cards":
+    [
+      {
+        "id": 1,
+        "clue": "A member of the Grand Old Party",
+        "answer": "Republican"
+      },
+      {
+        "id": 2,
+        "clue": "This type of \"theory\" explains how an event results from a plot by a covert group",
+        "answer": "conspiracy"
+      },
+      {
+        "id": 3,
+        "clue": "When speaking about matters of faith, \"ex cathedra\", the Pope is said to be this, meaning he can't be wrong",
+        "answer": "infallible"
+      },
+      {
+        "id": 4,
+        "clue": "\"Wise fool\" is an example of this 8-letter figure of speech",
+        "answer": "oxymoron"
+      },
+      {
+        "id": 5,
+        "clue": "Essential or basic; a literacy organization says \"Reading Is\" it",
+        "answer": "fundamental"
+      },
+      {
+        "id": 6,
+        "clue": "When the Bastille fell, Louis XVI asked, \"Is it a revolt?\" & was told it was one of these",
+        "answer": "revolution"
+      },
+      {
+        "id": 7,
+        "clue": "It means immature, or otherwise characteristic of a second-year student",
+        "answer": "sophomoric"
+      },
+      {
+        "id": 8,
+        "clue": "This word means \"arrogant\", though it could mean \"catching too many grizzlies\"",
+        "answer": "overbearing"
+      }
+    ]
   },
+  "2":
   {
-    "id": 3,
-    "clue": "A pagan",
-    "answer": "heathen"
+    "category": "THE SOLAR SYSTEM",
+    "cards":
+    [
+      {
+        "id": 1,
+        "clue": "Objects that pass closer to the sun than Mercury have been named for this mythological figure",
+        "answer": "Icarus"
+      },
+      {
+        "id": 2,
+        "clue": "Neptune also has these features, including LeVerrier & Adams; only Saturn's can be seen through a small telescope",
+        "answer": "rings"
+      },
+      {
+        "id": 3,
+        "clue": "It's been estimated that this planet contains about 70% of all the material in the solar system, excluding the sun",
+        "answer": "jupiter"
+      },
+      {
+        "id": 4,
+        "clue": "Because of its similar size, this planet is known as Earth's \"twin\"",
+        "answer": "venus"
+      },
+      {
+        "id": 5,
+        "clue": "Only 1 of 8 planets not named for a Greek or Roman mythological figure",
+        "answer": "earth"
+      },
+      {
+        "id": 6,
+        "clue": "On Jan. 2, 2004 the Stardust probe collected dust samples from Wild 2, one of these, & is returning them to Earth",
+        "answer": "comet"
+      },
+      {
+        "id": 7,
+        "clue": "Mercury is believed to have one of the densest in the solar system, made of iron & nickel",
+        "answer": "core"
+      },
+      {
+        "id": 8,
+        "clue": "This 17th century German astronomer's ist law states that the planets move in elliptical orbits around the sun",
+        "answer": "kepler"
+      }
+    ]
   },
+  "3":
   {
-    "id": 4,
-    "clue": "Excessive arrogance or pride",
-    "answer": "hubris"
+    "category": "FOOD",
+    "cards":
+    [
+      {
+        "id": 1,
+        "clue": "Different types of this in the supermarket are labeled \"all purpose\" and \"self-rising\"",
+        "answer": "flour"
+      },
+      {
+        "id": 2,
+        "clue": "A San Pedro, California packer first put this fish into cans in 1903; its casserole wasn't introduced until the '30s",
+        "answer": "tuna"
+      },
+      {
+        "id": 3,
+        "clue": "George Bush vetoed this veggie 62 years after it was brought to the U.S. from Italy",
+        "answer": "broccoli"
+      },
+      {
+        "id": 4,
+        "clue": "Reuben Mattus created this ice cream (& its Danish-sounding name) in the Bronx in 1961",
+        "answer": "Haagen-Dazs"
+      },
+      {
+        "id": 5,
+        "clue": "American Indians called the eastern, hard-shell variety of these shellfish quahogs",
+        "answer": "clams"
+      },
+      {
+        "id": 6,
+        "clue": "This lunch staple is named for the earldom of inveterate gambler John Montagu",
+        "answer": "sandwich"
+      },
+      {
+        "id": 7,
+        "clue": "In America this spice is used largely for its red color; Hungarians appreciate its taste",
+        "answer": "paprika"
+      },
+      {
+        "id": 8,
+        "clue": "Government graded AA, A, B, or C, the best is composed of at least 80% fat and has 12-16% water",
+        "answer": "butter"
+      }
+    ]
   },
+  "4":
   {
-    "id": 5,
-    "clue": "He who does it is lost",
-    "answer": "Hesitates"
+    "category": "HISTORY",
+    "cards":
+    [
+      {
+        "id": 1,
+        "clue": "This pupil of Socrates went to Sicily to try to turn Dionysius into a philosopher king",
+        "answer": "Plato"
+      },
+      {
+        "id": 2,
+        "clue": "The first Roman army to invade Britain was led by this general",
+        "answer": "Caesar"
+      },
+      {
+        "id": 3,
+        "clue": "In 1991 B.C. Amenemhet, a former vizier, founded this country's 12th dynasty",
+        "answer": "Egypt"
+      },
+      {
+        "id": 4,
+        "clue": "In 1919 this national assembly met in this city & formed a new German republic",
+        "answer": "Weimar"
+      },
+      {
+        "id": 5,
+        "clue": "More than 250,000 died in fighting before France granted this African nation independence July 3, 1962",
+        "answer": "Algeria"
+      },
+      {
+        "id": 6,
+        "clue": "About 3000 B.C. the Sumerians invented this writing system which used triangular marks",
+        "answer": "cuneiform"
+      },
+      {
+        "id": 7,
+        "clue": "This dominion was created by the British North America Act on July 1, 1867",
+        "answer": "canada"
+      },
+      {
+        "id": 8,
+        "clue": "On May 9, 1946 this country's King Victor Emmanuel abdicated in favor of his son Umberto",
+        "answer": "Italy"
+      }
+    ]
   },
+  "5":
   {
-    "id": 6,
-    "clue": "Tall baby sitter",
-    "answer": "highchair"
+    "category": "CROSSWORD CLUES \"H\"",
+    "cards":
+    [
+      {
+        "id": 1,
+        "clue": "Sleep like a bear",
+        "answer": "Hibernate"
+      },
+      {
+        "id": 2,
+        "clue": "A Japanese-style grill",
+        "answer": "hibachi"
+      },
+      {
+        "id": 3,
+        "clue": "A pagan",
+        "answer": "heathen"
+      },
+      {
+        "id": 4,
+        "clue": "Excessive arrogance or pride",
+        "answer": "hubris"
+      },
+      {
+        "id": 5,
+        "clue": "He who does it is lost",
+        "answer": "Hesitates"
+      },
+      {
+        "id": 6,
+        "clue": "Tall baby sitter",
+        "answer": "highchair"
+      },
+      {
+        "id": 7,
+        "clue": "Jacket for corn",
+        "answer": "husk"
+      },
+      {
+        "id": 8,
+        "clue": "X x X",
+        "answer": "hundred"
+      }
+    ]
   },
-  {
-    "id": 7,
-    "clue": "Jacket for corn",
-    "answer": "husk"
+  "6": {
+    "category": "CROSSWORD CLUES \"C\"",
+    "cards":
+    [
+      {
+        "id": 1,
+        "clue": "Have a bawl",
+        "answer": "cry"
+      },
+      {
+        "id": 2,
+        "clue": "Picasso's \"square\" style",
+        "answer": "cubism"
+      },
+      {
+        "id": 3,
+        "clue": "Cranky lawn weed",
+        "answer": "crabgrass"
+      },
+      {
+        "id": 4,
+        "clue": "Delaware or Virginia in the 1760s",
+        "answer": "colony"
+      },
+      {
+        "id": 5,
+        "clue": "Hooded cape for a monk",
+        "answer": "cowl"
+      },
+      {
+        "id": 6,
+        "clue": "A reddish-brown horse",
+        "answer": "chestnut"
+      },
+      {
+        "id": 7,
+        "clue": "House Democratic chat group",
+        "answer": "caucus"
+      },
+      {
+        "id": 8,
+        "clue": "Kit's partner",
+        "answer": "caboodle"
+      }
+    ]
   },
-  {
-    "id": 8,
-    "clue": "X x X",
-    "answer": "hundred"
-  }
-]
+}

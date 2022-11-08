@@ -94,6 +94,8 @@ import { useStorage } from '@vueuse/core'
 
 import { Fireworks } from '@fireworks-js/vue'
 import SimpleKeyboard from './SimpleKeyboard.vue'
+import { useRouter, useRoute } from 'vue-router';
+
 
 
 export default defineComponent({
@@ -111,11 +113,19 @@ export default defineComponent({
   emits: [],
 
   setup(props, { emit }) {
-    const TODAYS_CATEGORY = "CROSSWORD CLUES \"H\""
-
+    
     const answerFieldRef = ref(null as any)
+    const route = useRoute()
 
-    const totalCardCount = ref(cardData.length)
+    var archiveId = route.query['id'] ?? "today"
+    if(!cardData[archiveId]) {
+      archiveId = "today"
+    }
+
+    const todaysCards = cardData[archiveId].cards
+    const TODAYS_CATEGORY = cardData[archiveId].category
+
+    const totalCardCount = ref(todaysCards.length)
     const currentCardIndex = ref(0)
 
     const modalLine1 = ref('Guess the answers as fast you as you can!')
@@ -148,13 +158,13 @@ export default defineComponent({
     })
 
     /// TODO:
-    const currentDate = '63' + state.value.cards.length + TODAYS_CATEGORY
+    const currentDate = '65' + state.value.cards.length + TODAYS_CATEGORY
 
     if (currentDate != state.value.date) {
       state.value.count = 0
       state.value.timeElapsed = 0
       state.value.date = currentDate
-      state.value.cards = cardData.map((card) => ({...card, isSolved: false, revealedLetters: Array.from({length: card.answer.length}, (_) => '')}))
+      state.value.cards = todaysCards.map((card) => ({...card, isSolved: false, revealedLetters: Array.from({length: card.answer.length}, (_) => '')}))
     }
     const timeAtSessionStart = ref(state.value.timeElapsed)
     const totalTimeElapsed = ref(timeAtSessionStart.value)
@@ -211,13 +221,13 @@ export default defineComponent({
     }
 
     const nextClick = () => {
-      currentCardIndex.value = (currentCardIndex.value + 1) % cardData.length
+      currentCardIndex.value = (currentCardIndex.value + 1) % todaysCards.length
     }
     
     const prevClick = () => {
-      currentCardIndex.value = (currentCardIndex.value - 1) % cardData.length
+      currentCardIndex.value = (currentCardIndex.value - 1) % todaysCards.length
       while(currentCardIndex.value < 0) {
-        currentCardIndex.value += cardData.length
+        currentCardIndex.value += todaysCards.length
       }
     }
 
