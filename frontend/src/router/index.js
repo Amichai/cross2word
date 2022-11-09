@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import HomeView from '../components/HomeView.vue';
 import CardDeck from '../components/CardDeck.vue';
+import NewDeck from '../components/NewDeck.vue';
 
 const routes = [
   {
@@ -14,6 +15,11 @@ const routes = [
     name: 'Deck',
     component: CardDeck,
     props: true,
+  },
+  {
+    path: '/new',
+    name: 'New',
+    component: NewDeck,
   },
 ];
 
