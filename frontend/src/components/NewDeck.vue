@@ -84,7 +84,7 @@ export default defineComponent({
         body: JSON.stringify({
           id: "test7",
           cards:"[]",
-          category: "tag1",
+          category: category.value,
           timestamp: "2022-08-14 20:26:27.232238"
       })
       }).then((response) => {

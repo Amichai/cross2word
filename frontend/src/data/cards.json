@@ -1,37 +1,37 @@
 { 
   "today": {
-    "category": "DOUBLE \"L\" WORDS",
+    "category": "WEATHER",
     "cards":
     [
       {
         "id": 1,
-        "clue": "At the gym, this machine lets you walk or run in place by means of a moving belt",
-        "answer": "treadmill"
+        "clue": "Air is described as supersaturated when the relative humidity is higher than this percent",
+        "answer": "100"
       },
       {
         "id": 2,
-        "clue": "In Greek myth, Paris killed this hero by shooting him with an arrow; what a heel!",
-        "answer": "achilles"
+        "clue": "In U.S., most rainy days per year, up to 350, occur in this state",
+        "answer": "Hawaii"
       },
       {
         "id": 3,
-        "clue": "John Brown died on one in 1859",
-        "answer": "gallows"
+        "clue": "Produced by thunderstorm clouds, these lumps of ice bigger than 5mm are classified as hydrometeors",
+        "answer": "hailstones"
       },
       {
         "id": 4,
-        "clue": "From the Latin for \"bind to\", this word's synonyms are accomplice & friend",
-        "answer": "ally"
+        "clue": "Weather records are preserved in these, such as Mendenhall; a drill can pull out 160,000 years of data",
+        "answer": "Glaciers"
       },
       {
         "id": 5,
-        "clue": "It can refer to an onion before the development of the bulb, or an onionlike plant such as the leek or shallot",
-        "answer": "scallion"
+        "clue": "Tornadoes that develop over water are called these",
+        "answer": "Waterspouts"
       },
       {
         "id": 6,
-        "clue": "A streetcar",
-        "answer": "trolley"
+        "clue": "An increase in air temperature at higher altitudes is unusual & is called this",
+        "answer": "Inversion"
       }
     ]
   },
@@ -313,6 +313,42 @@
         "id": 8,
         "clue": "Kit's partner",
         "answer": "caboodle"
+      }
+    ]
+  },
+  "7": {
+    "category": "DOUBLE \"L\" WORDS",
+    "cards":
+    [
+      {
+        "id": 1,
+        "clue": "At the gym, this machine lets you walk or run in place by means of a moving belt",
+        "answer": "treadmill"
+      },
+      {
+        "id": 2,
+        "clue": "In Greek myth, Paris killed this hero by shooting him with an arrow; what a heel!",
+        "answer": "achilles"
+      },
+      {
+        "id": 3,
+        "clue": "John Brown died on one in 1859",
+        "answer": "gallows"
+      },
+      {
+        "id": 4,
+        "clue": "From the Latin for \"bind to\", this word's synonyms are accomplice & friend",
+        "answer": "ally"
+      },
+      {
+        "id": 5,
+        "clue": "It can refer to an onion before the development of the bulb, or an onionlike plant such as the leek or shallot",
+        "answer": "scallion"
+      },
+      {
+        "id": 6,
+        "clue": "A streetcar",
+        "answer": "trolley"
       }
     ]
   }
