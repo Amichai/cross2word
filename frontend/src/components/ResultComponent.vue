@@ -1,7 +1,10 @@
 <template>
-<div>
-  <div v-for="(ct, idx) in resultArray" :key="idx">
-    {{`🟩`.repeat(ct)}}
+<div class="result-component">
+  <div v-for="(letters, idx) in resultArray" :key="idx">
+    <span v-for="(letter, idx2) in letters" :key="idx2">
+      <!-- {{letter ? `🔲` : `🟩` }} -->
+      {{letter ? `🟩` :`🔲` }}
+    </span>
   </div>
 </div>
 </template>
@@ -16,7 +19,7 @@ export default defineComponent({
   props: {
     resultArray: {
       type: Array,
-      default: [3,3,2,1,0,1,0],
+      default: [],
     }
   },
 
@@ -30,4 +33,8 @@ export default defineComponent({
 </script>
 
 <style>
+.result-component {
+  font-size: 0.9rem;
+}
 </style>
+

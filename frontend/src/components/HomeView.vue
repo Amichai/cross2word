@@ -40,11 +40,6 @@
      <br />
      <span class="prompt">what is (a)...</span>
     <AnswerField 
-      :letterCount="currentAnswerLength" 
-      :revealedLetters="currentCard.revealedLetters"
-      :correctAnswer="currentCard.answer"
-      :isSolved="currentCard.isSolved"
-      :cardId="currentCard.id"
       @solved="currentCardSolved"
       ref="answerFieldRef" />
 
@@ -86,7 +81,8 @@ import {
   ref,
   computed,
   onMounted,
-  onUnmounted
+  onUnmounted,
+  watch
 } from 'vue';
 import PageNavbar from './PageNavbar.vue';
 import AnswerField from './AnswerField.vue';
@@ -120,28 +116,27 @@ export default defineComponent({
     const answerFieldRef = ref(null as any)
     const route = useRoute()
 
-    var archiveId = route.query['id'] ?? "today"
-    if(!cardData[archiveId]) {
-      archiveId = "today"
+    const emptyCard = {
+      clue: '',
+      answer: '',
+      id: '',
     }
 
-    const todaysCards = cardData[archiveId].cards
-    const TODAYS_CATEGORY = cardData[archiveId].category
+    var todaysCards = []
 
+    var TODAYS_CATEGORY = ""
     const totalCardCount = ref(todaysCards.length)
     const currentCardIndex = ref(0)
+    const modalLine2 = ref('')
 
     const modalLine1 = ref('Guess the answers as fast you as you can!\n\nRevealing a letter adds 30 seconds to your time.')
-    // const modalLine2 = ref(`Revealing a letter adds 30 seconds to your total time\n\nToday\'s category is ${TODAYS_CATEGORY}!`)
-    const modalLine2 = ref(`Today\'s category is ${TODAYS_CATEGORY}!`)
-
-    const resultChart = ref('RESULT AREA\n 🟩🟩🟩🟩🟩\n 🟩🟩🟩🟩🟩')
 
     const modalButton = ref("LET'S GO!")
 
 
     onMounted(() => {
       window.addEventListener('resize', onResize);
+      setCurrentAnswerField()
     });
 
     onUnmounted(() => {
@@ -155,23 +150,69 @@ export default defineComponent({
       cards: [],
     })
 
+
+    const setCardsAndCategory = (cards, category) => {
+      todaysCards = cards
+      TODAYS_CATEGORY = category
+
+      totalCardCount.value = todaysCards.length
+      currentCardIndex.value = 0
+      modalLine2.value = `Today\'s category is ${TODAYS_CATEGORY}!`
+
+      const currentDate = '76' + state.value.cards.length + TODAYS_CATEGORY
+
+      if (currentDate != state.value.date) {
+        state.value.count = 0
+        state.value.timeElapsed = 0
+        state.value.date = currentDate
+        state.value.cards = todaysCards.map((card) => ({...card, isSolved: false, revealedLetters: Array.from({length: card.answer.length}, (_) => '')}))
+      }
+    }
+
+    const queryPuzzle = (puzzleId) => {
+      fetch('https://hohi6i7j51.execute-api.us-east-1.amazonaws.com/dev/id/' + puzzleId, {
+          headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+      }).then((response) => {
+        response.json().then(result => {
+          console.log(result)
+
+          setCardsAndCategory(JSON.parse(result.Items[0].cards.S), result.Items[0].category.S)
+        })
+      })
+    }
+    
+
+    /// check if an p query parameter exists on the route. If it does look up that puzzle
+    /// IF not check if an id exists
+    /// if not load today's puzzle
+    
+    if ('p' in route.query) {
+      const puzzleId = route.query['p']
+      queryPuzzle(puzzleId)
+    } else if('id' in route.query) {
+      const archiveId = route.query['id']
+      setCardsAndCategory(cardData[archiveId].cards, cardData[archiveId].category)
+    } else {
+      setCardsAndCategory(cardData['today'].cards, cardData['today'].category)
+    }
+
     const currentCard = computed(() => {
-      return state.value.cards[currentCardIndex.value]}
-    )
+      if(!state.value.cards.length) {
+        
+        return emptyCard
+      }
+
+      const toReturn = state.value.cards[currentCardIndex.value]
+      return toReturn
+    })
 
     const currentAnswerLength = computed(() => {
       return currentCard.value.answer.length
     })
 
-    /// TODO:
-    const currentDate = '66' + state.value.cards.length + TODAYS_CATEGORY
-
-    if (currentDate != state.value.date) {
-      state.value.count = 0
-      state.value.timeElapsed = 0
-      state.value.date = currentDate
-      state.value.cards = todaysCards.map((card) => ({...card, isSolved: false, revealedLetters: Array.from({length: card.answer.length}, (_) => '')}))
-    }
     const timeAtSessionStart = ref(state.value.timeElapsed)
     const totalTimeElapsed = ref(timeAtSessionStart.value)
 
@@ -187,6 +228,7 @@ export default defineComponent({
 
 
     const setBoardAsSolved = () => {
+      console.log("SET BOARD AS SOLVED")
       fireworksEnabled.value = true
 
       modalLine1.value = `Solved in ${totalTimeElapsed.value} Seconds!`
@@ -194,10 +236,13 @@ export default defineComponent({
       modalButton.value = "Review My Answers"
       isModalVisible.value = true
 
-      revealedLettersArray.value = state.value.cards.map((card) => card.hintsRequired ?? 0)
+      revealedLettersArray.value = state.value.cards.map((card) => {
+        console.log(card.hintsRequired)
+        return card.hintsRequired.map((letter) => letter !== '')
+      })
     }
 
-    if(unsolvedCount.value === 0) {
+    if(unsolvedCount.value === 0 && solvedCount.value > 0) {
         setBoardAsSolved()
     }
 
@@ -230,8 +275,28 @@ export default defineComponent({
         }
       }
 
-      answerFieldRef.value.newLetterRevealed()
+      console.log(`home revealed letters: ${currentCard.value.revealedLetters}`)
+      answerFieldRef.value.newLetterRevealed(currentCard.value.revealedLetters)
     }
+
+    const setCurrentAnswerField = () => {
+      console.log("SET CURRENT ANSWER FIELD")
+      console.log(currentCard.value)
+      if(currentCard.value === emptyCard) {
+        return
+      }
+
+      answerFieldRef.value?.setCurrentAnswer(
+          currentCard.value.revealedLetters,
+          currentCard.value.isSolved,
+          currentCard.value.id,
+          currentCard.value.answer
+        )
+    }
+
+    watch(() => currentCardIndex.value, (newVal) => {
+      setCurrentAnswerField()
+    })
 
     const nextClick = () => {
       currentCardIndex.value = (currentCardIndex.value + 1) % todaysCards.length
@@ -277,7 +342,7 @@ export default defineComponent({
       if(currentCard.value.id !== cardId) {
         return
       }
-      currentCard.value.hintsRequired = currentCard.value.revealedLetters.length
+      currentCard.value.hintsRequired = [...currentCard.value.revealedLetters]
       currentCard.value.revealedLetters = currentCard.value.answer.split('')
       currentCard.value.isSolved = true
       console.log("IS SOLVED: ", cardId)
@@ -311,11 +376,15 @@ export default defineComponent({
     };
 
     const share = () => {
-      const text = `🪶Buzzard Battle🪶 - ${TODAYS_CATEGORY}\n${totalTimeElapsed.value} seconds\nhttps://chanagila.buzzardbattle.com`
+      const histogram = revealedLettersArray.value.map((arr) => arr.map((letter) => letter ? `🟩` :`🔲`).join('')).join('\n')
+      const text = `🪶Buzzard Battle🪶 - ${TODAYS_CATEGORY}\n${totalTimeElapsed.value} seconds\n${histogram}`
+
+
       const type = "text/plain";
       const blob = new Blob([text], { type });
       const data = [new ClipboardItem({ [type]: blob })];
       navigator.clipboard.write(data)
+
     }
 
 
@@ -351,7 +420,6 @@ export default defineComponent({
       isMobile,
       share,
 
-      resultChart,
       revealedLettersArray,
     };
   },
