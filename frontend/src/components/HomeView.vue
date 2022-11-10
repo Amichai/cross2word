@@ -133,7 +133,6 @@ export default defineComponent({
 
     const modalButton = ref("LET'S GO!")
 
-
     onMounted(() => {
       window.addEventListener('resize', onResize);
       setCurrentAnswerField()
@@ -150,8 +149,32 @@ export default defineComponent({
       cards: [],
     })
 
+    const currentCard = computed(() => {
+      if(!state.value.cards.length) {
+        
+        return emptyCard
+      }
 
-    const setCardsAndCategory = (cards, category) => {
+      const toReturn = state.value.cards[currentCardIndex.value]
+      return toReturn
+    })
+
+    const setCurrentAnswerField = () => {
+      console.log("SET CURRENT ANSWER FIELD")
+      console.log(currentCard.value)
+      if(currentCard.value === emptyCard) {
+        return
+      }
+
+      answerFieldRef.value?.setCurrentAnswer(
+          currentCard.value.revealedLetters,
+          currentCard.value.isSolved,
+          currentCard.value.id,
+          currentCard.value.answer
+        )
+    }
+
+    const setCardsAndCategory = (cards, category, puzzleId) => {
       todaysCards = cards
       TODAYS_CATEGORY = category
 
@@ -159,7 +182,7 @@ export default defineComponent({
       currentCardIndex.value = 0
       modalLine2.value = `Today\'s category is ${TODAYS_CATEGORY}!`
 
-      const currentDate = '76' + state.value.cards.length + TODAYS_CATEGORY
+      const currentDate = '76' + state.value.cards.length + TODAYS_CATEGORY + puzzleId
 
       if (currentDate != state.value.date) {
         state.value.count = 0
@@ -167,6 +190,8 @@ export default defineComponent({
         state.value.date = currentDate
         state.value.cards = todaysCards.map((card) => ({...card, isSolved: false, revealedLetters: Array.from({length: card.answer.length}, (_) => '')}))
       }
+
+      setCurrentAnswerField()
     }
 
     const queryPuzzle = (puzzleId) => {
@@ -177,9 +202,8 @@ export default defineComponent({
         },
       }).then((response) => {
         response.json().then(result => {
-          console.log(result)
 
-          setCardsAndCategory(JSON.parse(result.Items[0].cards.S), result.Items[0].category.S)
+          setCardsAndCategory(JSON.parse(decodeURI(result.Items[0].cards.S)), result.Items[0].category.S, puzzleId)
         })
       })
     }
@@ -194,20 +218,10 @@ export default defineComponent({
       queryPuzzle(puzzleId)
     } else if('id' in route.query) {
       const archiveId = route.query['id']
-      setCardsAndCategory(cardData[archiveId].cards, cardData[archiveId].category)
+      setCardsAndCategory(cardData[archiveId].cards, cardData[archiveId].category, archiveId)
     } else {
-      setCardsAndCategory(cardData['today'].cards, cardData['today'].category)
+      setCardsAndCategory(cardData['today'].cards, cardData['today'].category, 'today')
     }
-
-    const currentCard = computed(() => {
-      if(!state.value.cards.length) {
-        
-        return emptyCard
-      }
-
-      const toReturn = state.value.cards[currentCardIndex.value]
-      return toReturn
-    })
 
     const currentAnswerLength = computed(() => {
       return currentCard.value.answer.length
@@ -277,21 +291,6 @@ export default defineComponent({
 
       console.log(`home revealed letters: ${currentCard.value.revealedLetters}`)
       answerFieldRef.value.newLetterRevealed(currentCard.value.revealedLetters)
-    }
-
-    const setCurrentAnswerField = () => {
-      console.log("SET CURRENT ANSWER FIELD")
-      console.log(currentCard.value)
-      if(currentCard.value === emptyCard) {
-        return
-      }
-
-      answerFieldRef.value?.setCurrentAnswer(
-          currentCard.value.revealedLetters,
-          currentCard.value.isSolved,
-          currentCard.value.id,
-          currentCard.value.answer
-        )
     }
 
     watch(() => currentCardIndex.value, (newVal) => {

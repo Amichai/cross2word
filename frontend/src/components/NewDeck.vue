@@ -34,6 +34,8 @@
 import { defineComponent, markRaw, ref } from 'vue';
 import PageNavbar from './PageNavbar.vue';
 import EditCard from './EditCard.vue';
+import ShortUniqueId from 'short-unique-id';
+import { useRouter, useRoute } from 'vue-router';
 
 export default defineComponent({
   components: {
@@ -49,16 +51,18 @@ export default defineComponent({
   setup(props, { emit }) {
     const cardComponents = ref([
       markRaw(EditCard),
+      markRaw(EditCard),
     ])
 
-    const cardList = [{question: '', answer: ''}]
+    const router = useRouter()
+
+    const cardList = [{question: '', answer: ''}, {question: '', answer: ''}]
 
     const category = ref('')
 
     const deleteCard = (idx) =>{
       console.log("DELETE CARD", idx)
       cardComponents.value.splice(idx, 1)
-      debugger
     }
 
     const newCard = () => {
@@ -73,23 +77,38 @@ export default defineComponent({
       console.log(cardList)
     }
 
+    const sleep = (ms) => {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    const uid = new ShortUniqueId()
+
     const done = () => {
-      debugger
+      const id = uid()
+      const cards = cardList.map((card, idx) => ({
+        id: idx,
+        clue: card.question,
+        answer: card.answer,
+      }))
+
+      const body = JSON.stringify({
+          id,
+          cards: encodeURI(JSON.stringify(cards)),
+          category: category.value,
+          timestamp: new Date().toISOString(),
+      })
+      
       fetch('https://hohi6i7j51.execute-api.us-east-1.amazonaws.com/dev/id/0', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          id: "test7",
-          cards:"[]",
-          category: category.value,
-          timestamp: "2022-08-14 20:26:27.232238"
-      })
+        body,
       }).then((response) => {
           response.json().then(result => {
-            debugger
+            sleep(600)
+            router.push({path: '/', query: { 'p': id }})
         })
       })
 
