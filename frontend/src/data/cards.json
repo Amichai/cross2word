@@ -1,37 +1,37 @@
 { 
   "today": {
-    "category": "WEATHER",
+    "category": "FRICTION",
     "cards":
     [
       {
         "id": 1,
-        "clue": "Air is described as supersaturated when the relative humidity is higher than this percent",
-        "answer": "100"
+        "clue": "Friction, as when a brake pad slows a wheel, converts kinetic energy into this",
+        "answer": "heat"
       },
       {
         "id": 2,
-        "clue": "In U.S., most rainy days per year, up to 350, occur in this state",
-        "answer": "Hawaii"
+        "clue": "These fluid-filled swellings on the skin are most commonly caused by burns or friction",
+        "answer": "Blisters"
       },
       {
         "id": 3,
-        "clue": "Produced by thunderstorm clouds, these lumps of ice bigger than 5mm are classified as hydrometeors",
-        "answer": "hailstones"
+        "clue": "Friction gives a balloon rubbed on wool a static charge by transferring these subatomic particles",
+        "answer": "electrons"
       },
       {
         "id": 4,
-        "clue": "Weather records are preserved in these, such as Mendenhall; a drill can pull out 160,000 years of data",
-        "answer": "Glaciers"
+        "clue": "Friction is what makes a _________ motion machine impossible",
+        "answer": "Perpetual"
       },
       {
         "id": 5,
-        "clue": "Tornadoes that develop over water are called these",
-        "answer": "Waterspouts"
+        "clue": "The rolling element types of these friction-reducing machine parts come in 2 varieties, roller & ball",
+        "answer": "bearings"
       },
       {
         "id": 6,
-        "clue": "An increase in air temperature at higher altitudes is unusual & is called this",
-        "answer": "Inversion"
+        "clue": "A violinist rubs this substance onto his bow to increase the friction between it & the strings",
+        "answer": "rosin"
       }
     ]
   },
@@ -349,6 +349,42 @@
         "id": 6,
         "clue": "A streetcar",
         "answer": "trolley"
+      }
+    ]
+  },
+  "8": {
+    "category": "WEATHER",
+    "cards":
+    [
+      {
+        "id": 1,
+        "clue": "Air is described as supersaturated when the relative humidity is higher than this percent",
+        "answer": "100"
+      },
+      {
+        "id": 2,
+        "clue": "In U.S., most rainy days per year, up to 350, occur in this state",
+        "answer": "Hawaii"
+      },
+      {
+        "id": 3,
+        "clue": "Produced by thunderstorm clouds, these lumps of ice bigger than 5mm are classified as hydrometeors",
+        "answer": "hailstones"
+      },
+      {
+        "id": 4,
+        "clue": "Weather records are preserved in these, such as Mendenhall; a drill can pull out 160,000 years of data",
+        "answer": "Glaciers"
+      },
+      {
+        "id": 5,
+        "clue": "Tornadoes that develop over water are called these",
+        "answer": "Waterspouts"
+      },
+      {
+        "id": 6,
+        "clue": "An increase in air temperature at higher altitudes is unusual & is called this",
+        "answer": "Inversion"
       }
     ]
   }
