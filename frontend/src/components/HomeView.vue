@@ -182,7 +182,7 @@ export default defineComponent({
       currentCardIndex.value = 0
       modalLine2.value = `Today\'s category is ${TODAYS_CATEGORY}!`
 
-      const currentDate = '76' + state.value.cards.length + TODAYS_CATEGORY + puzzleId
+      const currentDate = '76' + TODAYS_CATEGORY + puzzleId
 
       if (currentDate != state.value.date) {
         state.value.count = 0

@@ -1,37 +1,43 @@
 { 
-  "today": {
-    "category": "FRICTION",
+  "today":
+  {
+    "category": "CROSSWORD CLUES \"V\"",
     "cards":
     [
       {
         "id": 1,
-        "clue": "Friction, as when a brake pad slows a wheel, converts kinetic energy into this",
-        "answer": "heat"
+        "clue": "By way of",
+        "answer": "via"
       },
       {
         "id": 2,
-        "clue": "These fluid-filled swellings on the skin are most commonly caused by burns or friction",
-        "answer": "Blisters"
+        "clue": "Malicious or poisonous, like a snake",
+        "answer": "venomous"
       },
       {
         "id": 3,
-        "clue": "Friction gives a balloon rubbed on wool a static charge by transferring these subatomic particles",
-        "answer": "electrons"
+        "clue": "\"Spike\" sport",
+        "answer": "Volleyball"
       },
       {
         "id": 4,
-        "clue": "Friction is what makes a _________ motion machine impossible",
-        "answer": "Perpetual"
-      },
+        "clue": "The Lord said \"it\" was his",
+        "answer": "vengeance"
+      }, 
       {
         "id": 5,
-        "clue": "The rolling element types of these friction-reducing machine parts come in 2 varieties, roller & ball",
-        "answer": "bearings"
+        "clue": "Foxlike",
+        "answer": "vulpine"
       },
       {
         "id": 6,
-        "clue": "A violinist rubs this substance onto his bow to increase the friction between it & the strings",
-        "answer": "rosin"
+        "clue": "Specifically, a peeping Tom",
+        "answer": "voyeur"
+      },
+      {
+        "id": 7,
+        "clue": "Orchid with a tasty bean",
+        "answer": "vanilla"
       }
     ]
   },
@@ -385,6 +391,287 @@
         "id": 6,
         "clue": "An increase in air temperature at higher altitudes is unusual & is called this",
         "answer": "Inversion"
+      }
+    ]
+  },
+  "9": {
+    "category": "FRICTION",
+    "cards":
+    [
+      {
+        "id": 1,
+        "clue": "Friction, as when a brake pad slows a wheel, converts kinetic energy into this",
+        "answer": "heat"
+      },
+      {
+        "id": 2,
+        "clue": "These fluid-filled swellings on the skin are most commonly caused by burns or friction",
+        "answer": "Blisters"
+      },
+      {
+        "id": 3,
+        "clue": "Friction gives a balloon rubbed on wool a static charge by transferring these subatomic particles",
+        "answer": "electrons"
+      },
+      {
+        "id": 4,
+        "clue": "Friction is what makes a _________ motion machine impossible",
+        "answer": "Perpetual"
+      },
+      {
+        "id": 5,
+        "clue": "The rolling element types of these friction-reducing machine parts come in 2 varieties, roller & ball",
+        "answer": "bearings"
+      },
+      {
+        "id": 6,
+        "clue": "A violinist rubs this substance onto his bow to increase the friction between it & the strings",
+        "answer": "rosin"
+      }
+    ]
+  },
+  "10": {
+    "category": "FILL IN THE BLANK",
+    "cards":
+    [
+      {
+        "id": 1,
+        "clue": "Saddle_______ Sleeping______ Punching______",
+        "answer": "bag"
+      },
+      {
+        "id": 2,
+        "clue": "Presidential_______ Rat_______ Drag_______",
+        "answer": "race"
+      },
+      {
+        "id": 3,
+        "clue": "Fountain_______ Bull_______ Pig_______",
+        "answer": "pen"
+      },
+      {
+        "id": 4,
+        "clue": "Bald _____ eye",
+        "answer": "eagle"
+      },
+      {
+        "id": 5,
+        "clue": "Half _____ Alaska",
+        "answer": "baked"
+      },
+      {
+        "id": 6,
+        "clue": "Breeder's _____ holder",
+        "answer": "cup"
+      }
+    ]
+  },
+  "11": {
+    "category": "COMPUTERS",
+    "cards":
+    [
+      {
+        "id": 1,
+        "clue": "A type of this counting device is called suan pan in Chinese & soroban in Japanese",
+        "answer": "abacus"
+      },
+      {
+        "id": 2,
+        "clue": "Term describing materials like silicon, halfway between an insulator & a conductor",
+        "answer": "Semiconductor"
+      },
+      {
+        "id": 3,
+        "clue": "Hewlett-Packard, Epson & Canon all make the ink-jet variety of these peripherals",
+        "answer": "Printers"
+      },
+      {
+        "id": 4,
+        "clue": "The digits 0-9 & the letters A-Z are collectively known as this type of characters",
+        "answer": "Alphanumeric"
+      },
+      {
+        "id": 5,
+        "clue": "Before computer games, this \"happy\" term referred to a control rod used by pilots",
+        "answer": "joystick"
+      },
+      {
+        "id": 6,
+        "clue": "Robert Metcalfe was inducted into the Inventors' Hall of Fame for this computer network that sounds like an anesthetic",
+        "answer": "Ethernet"
+      }
+    ]
+  },
+  "12":
+  {
+    "category": "THE OLD TESTAMENT",
+    "cards":
+    [
+      {
+        "id": 1,
+        "clue": "He is slain in Genesis 4",
+        "answer": "Abel"
+      },
+      {
+        "id": 2,
+        "clue": "In Genesis 40 he takes a job as a dream interpreter",
+        "answer": "Joseph"
+      },
+      {
+        "id": 3,
+        "clue": "The name of this final book of the Pentateuch means \"second law\"",
+        "answer": "Deuteronomy"
+      },
+      {
+        "id": 4,
+        "clue": "Noah's Ark was made of gopher wood & measured 300 of these units in length",
+        "answer": "cubits"
+      },
+      {
+        "id": 5,
+        "clue": "2 of these that mention dancing are Number 30 & Number 149",
+        "answer": "Psalms"
+      },
+      {
+        "id": 6,
+        "clue": "This book talks about \"A time to love, and a time to hate; a time of war, and a time of peace\"",
+        "answer": "Ecclesiastes"
+      },
+      {
+        "id": 7,
+        "clue": "You'll find this pair of books between First & Second Samuel & First & Second Chronicles",
+        "answer": "Kings"
+      },
+      {
+        "id": 8,
+        "clue": "Probably written by Jeremiah, this book is in the form of a 5-poem dirge",
+        "answer": "Lamentations"
+      }
+    ]
+  },
+  "13":
+  {
+    "category": "THE LAW",
+    "cards":
+    [
+      {
+        "id": 1,
+        "clue": "Once applied to slaves, it's the general legal term for items of personal property",
+        "answer": "chattel"
+      },
+      {
+        "id": 2,
+        "clue": "Not a pardon, which lifts punishment, it differs by barring prosecution",
+        "answer": "amnesty"
+      },
+      {
+        "id": 3,
+        "clue": "They're formal claims & defenses by the parties to a civil suit; additional targeted ones may be \"special\"",
+        "answer": "pleadings"
+      },
+      {
+        "id": 4,
+        "clue": "While a summons asks nicely, this demands your appearance in court",
+        "answer": "subpoena"
+      },
+      {
+        "id": 5,
+        "clue": "Probate is the legal procedure by which one of these documents is proven valid or invalid",
+        "answer": "will"
+      },
+      {
+        "id": 6,
+        "clue": "It's defined as one who could testify regarding what he had seen",
+        "answer": "eyewitness"
+      },
+      {
+        "id": 7,
+        "clue": "In many U.S. jurisdictions, the M'Naghten rule is the test applied for this type of defense",
+        "answer": "insanity"
+      }
+    ]
+  },
+  "14":
+  {
+    "category": "RAP",
+    "cards":
+    [
+      {
+        "id": 1,
+        "clue": "Jay-Z's hit song \"Hard Knock Life\" features samples from this musical",
+        "answer": "annie"
+      }, 
+      {
+        "id": 2,
+        "clue": "In the title of Ice-T's album, it's what the \"G\" in \"O.G.\" stands for",
+        "answer": "gangster"
+      },
+      {
+        "id": 3,
+        "clue": "This trio helped bring rap music to middle America when they teamed up with Aerosmith on a version of \"Walk This Way\"",
+        "answer": "Run-DMC"
+      },
+      {
+        "id": 4,
+        "clue": "From Staten Island, _______ \"clan\" is a group of 9 MCs is named after a mythical kung fu sword",
+        "answer": "wu-tang"
+      },
+      {
+        "id": 5,
+        "clue": "Originally rhythmic backing music, it now refers to all of rap culture, including dress & dance",
+        "answer": "hip-hop"
+      },
+      {
+        "id": 6,
+        "clue": "After being shot 4 times, this rapper tragically died in Las Vegas on September 13, 1996",
+        "answer": "tupac"
+      }
+    ]
+  },
+  "15":
+  {
+    "category": "SHEAKESPEAREAN FILL IN THE BLANK",
+    "cards":
+    [
+      {
+        "id": 1,
+        "clue": "Cry '_____!,' and let slip the dogs of war. (Julius Caesar)",
+        "answer": "Havoc"
+      },
+      {
+        "id": 2,
+        "clue": "The time is out of _____: O cursed spite (Hamlet)",
+        "answer": "joint"
+      },
+      {
+        "id": 3,
+        "clue": "Is this a ______ which I see before me, The handle toward my hand? (Macbeth)",
+        "answer": "dagger"
+      },
+      {
+        "id": 4,
+        "clue": "What light through yonder window _____? (Romeo and Juliet)",
+        "answer": "breaks"
+      }, 
+      {
+        "id": 5,
+        "clue": "Now is the winter of our discontent made glorious summer by this sun of ____. (Richard III)",
+        "answer": "York"
+      },
+      {
+        "id": 6,
+        "clue": "Hath not a Jew hands, organs, ________, senses, affections, passions (The Merchant of Venice)",
+        "answer": "dimensions"
+      },
+      {
+        "id": 7,
+        "clue": "The better part of valour is ________; in the which better part I have saved my life. (Henry IV)",
+        "answer": "discretion"
+      },
+      {
+        "id": 8,
+        "clue": "Some Cupid kills with arrows, some with _____. (Much Ado About Nothing)",
+        "answer": "traps"
       }
     ]
   }
